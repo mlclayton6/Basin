@@ -1,0 +1,68 @@
+---
+title: "leaflet"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r packages}
+
+# install packages
+
+install.packages("tidyverse")
+install.packages("leaflet")
+
+library(tidyverse) ## For plotting and data wrangling.
+library(leaflet) ## For leaflet interactive maps
+library(sf) ## For spatial data
+library(RColorBrewer) ## For colour palettes
+library(htmltools) ## For html
+library(leafsync) ## For placing plots side by side
+library(kableExtra) ## Table output
+```
+
+```{r}
+
+# read maine_buoys csv
+
+maine_buoys <- read_csv("/cloud/project/maine_buoy.csv")
+
+```
+
+
+```{r leaflet-gulf-of-maine}
+
+# create marker labels for gulf of maine leaflet
+
+labels <- sprintf(
+  "<strong>%s</strong><br/><strong>Location:</strong> %s<br/><strong>Type:</strong> %s<br/><strong>Link:</strong> %s",
+    maine_buoys$name, 
+    maine_buoys$Location, 
+    maine_buoys$category,
+    maine_buoys$link) %>% 
+      lapply(htmltools::HTML) 
+
+
+# Generate gulf of maine leaflet
+## OpenStreetMap chosen because of extensive labelling (helpful when exploring a mapping tool)
+
+leaflet(maine_buoys) %>%
+  addTiles() %>%
+  addProviderTiles(providers$OpenStreetMap) %>%
+  addMarkers(~lon, ~lat, popup = ~labels) %>%
+    setView(lng = -69, lat = 43.8, zoom = 7.5)  
+  
+```
+```{r leaflet-phippsburg-basin}
+
+# Generate basin leaflet
+## Esri.WorldImagery chosen to help better visualize the natural environment around the basin
+
+leaflet() %>%
+  addTiles() %>%
+  addProviderTiles(providers$Esri.WorldImagery) %>%
+  addProviderTiles(providers$CartoDB.VoyagerOnlyLabels) %>%
+  setView(lng = -69.855, lat = 43.805, zoom = 14) 
+```
