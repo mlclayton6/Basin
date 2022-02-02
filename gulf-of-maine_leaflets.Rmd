@@ -27,7 +27,7 @@ library(kableExtra) ## Table output
 
 # read maine_buoys csv
 
-maine_buoys <- read_csv("/cloud/project/maine_buoy.csv")
+maine_buoys <- read_csv("/cloud/project/data/maine_buoy.csv")
 
 ```
 
@@ -46,13 +46,14 @@ labels <- sprintf(
 
 
 # Generate gulf of maine leaflet
-## OpenStreetMap chosen because of extensive labelling (helpful when exploring a mapping tool)
+## OpenStreetMap chosen because of extensive labeling (helpful when exploring a mapping tool)
 
 leaflet(maine_buoys) %>%
   addTiles() %>%
-  addProviderTiles(providers$OpenStreetMap) %>%
+  addProviderTiles(providers$Esri.OceanBasemap) %>%
   addMarkers(~lon, ~lat, popup = ~labels) %>%
-    setView(lng = -69, lat = 43.8, zoom = 7.5)  
+    setView(lng = -69, lat = 43.7, zoom = 7.5)  
+
   
 ```
 ```{r leaflet-phippsburg-basin}
