@@ -1,5 +1,5 @@
 ---
-title: "leaflet"
+title: "Gulf of Maine/Basin Leaflets"
 output: html_document
 ---
 
@@ -11,16 +11,17 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # install packages
 
-install.packages("tidyverse")
-install.packages("leaflet")
+## install.packages("tidyverse")
+## install.packages("leaflet")
 
 library(tidyverse) ## For plotting and data wrangling.
 library(leaflet) ## For leaflet interactive maps
-library(sf) ## For spatial data
-library(RColorBrewer) ## For colour palettes
-library(htmltools) ## For html
-library(leafsync) ## For placing plots side by side
-library(kableExtra) ## Table output
+
+# library(sf) ## For spatial data
+# library(RColorBrewer) ## For colour palettes
+# library(htmltools) ## For html
+# library(leafsync) ## For placing plots side by side
+# library(kableExtra) ## Table output
 ```
 
 ```{r}
