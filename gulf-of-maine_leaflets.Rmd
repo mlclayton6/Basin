@@ -1,13 +1,16 @@
 ---
-title: "Gulf of Maine/Basin Leaflets"
-output: html_document
+title: "Gulf of Maine Monitoring and Basin Oyster Restoration Site Leaflet Maps"
+output: 
+  html_document:
+    toc: TRUE
+    number_sections: TRUE
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
 ```
 
-```{r packages}
+```{r packages, echo=FALSE}
 
 # install packages
 
@@ -28,19 +31,20 @@ library(leaflet) ## For leaflet interactive maps
 
 # read maine_buoys csv
 
-maine_buoys <- read_csv("/cloud/project/data/maine_buoy.csv")
+maine_buoys <- read_csv("data/maine_buoy.csv")
 
 ```
 
+# Gulf of Maine Buoy Data
 
 ```{r leaflet-gulf-of-maine}
 
 # create marker labels for gulf of maine leaflet
 
 labels <- sprintf(
-  "<strong>%s</strong><br/><strong>Location:</strong> %s<br/><strong>Type:</strong> %s<br/><strong>Link:</strong> %s",
+  "<strong>%s</strong><br/><strong>location:</strong> %s<br/><strong>Type:</strong> %s<br/><strong>Link:</strong> %s",
     maine_buoys$name, 
-    maine_buoys$Location, 
+    maine_buoys$location, 
     maine_buoys$category,
     maine_buoys$link) %>% 
       lapply(htmltools::HTML) 
@@ -57,14 +61,28 @@ leaflet(maine_buoys) %>%
 
   
 ```
+
+# Phippsburg Basin Project Site
+
 ```{r leaflet-phippsburg-basin}
 
 # Generate basin leaflet
 ## Esri.WorldImagery chosen to help better visualize the natural environment around the basin
 
-leaflet() %>%
+basin <- data.frame(
+  name = "The Basin",
+  location = "Phippsburg, Maine",
+  category = "Ocean",
+  link = NA,
+  notes = "Oyster restoration site", 
+  lon = -69.852308,
+  lat = 43.805930
+)
+
+leaflet(basin) %>%
   addTiles() %>%
   addProviderTiles(providers$Esri.WorldImagery) %>%
   addProviderTiles(providers$CartoDB.VoyagerOnlyLabels) %>%
+  addMarkers(~lon, ~lat) %>%
   setView(lng = -69.855, lat = 43.805, zoom = 14) 
 ```
