@@ -1,4 +1,4 @@
-# Basin
-Oyster Habitat Modelling Research Project
+# Phippsburg Basin Oyster Restoration 
+Oyster Habitat Modeling Research Project
 
 [Leaflet Map](gulf-of-maine_leaflets.html)
